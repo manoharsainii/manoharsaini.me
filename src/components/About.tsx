@@ -1,48 +1,49 @@
 import React from 'react';
-import { GitHub, Twitter, Linkedin } from 'lucide-react';
-import { motion } from 'framer-motion';
 
-const About = () => {
-    return (
-        <section id="about" className="min-h-screen py-20 px-4 bg-background">
-            <div className="max-w-3xl mx-auto text-center">
-                <motion.h2
-                    className="text-4xl font-bold mb-8 text-text-primary"
-                    initial={{ y: -50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                >
-                    About Me
-                </motion.h2>
-                <motion.p
-                    className="text-text-secondary mb-8"
-                    initial={{ y: 50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 1 }}
-                >
-                    I'm a passionate full-stack developer with expertise in modern web technologies.
-                    I love building innovative digital experiences and solving complex problems
-                    through clean, efficient code.
-                </motion.p>
-                <motion.div
-                    className="flex justify-center space-x-6"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.5 }}
-                >
-                    <a href="#" className="text-text-secondary hover:text-text-primary">
-                        <GitHub size={24} />
-                    </a>
-                    <a href="#" className="text-text-secondary hover:text-text-primary">
-                        <Twitter size={24} />
-                    </a>
-                    <a href="#" className="text-text-secondary hover:text-text-primary">
-                        <Linkedin size={24} />
-                    </a>
-                </motion.div>
+const About: React.FC = () => {
+  return (
+    <div className="max-w-4xl mx-auto">
+      <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">
+        About Me
+      </h2>
+      <div className="grid md:grid-cols-2 gap-8">
+        <div className="space-y-4">
+          <p className="text-gray-600 dark:text-gray-300">
+            I'm a passionate Full Stack Developer with expertise in modern web technologies.
+            I love creating elegant solutions to complex problems and am constantly learning
+            new technologies to stay at the forefront of web development.
+          </p>
+          <p className="text-gray-600 dark:text-gray-300">
+            When I'm not coding, you can find me exploring new technologies, contributing
+            to open-source projects, or sharing my knowledge through technical writing.
+          </p>
+        </div>
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Skills</h3>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <h4 className="font-medium text-gray-700 dark:text-gray-200">Frontend</h4>
+              <ul className="list-disc list-inside text-gray-600 dark:text-gray-300">
+                <li>React</li>
+                <li>TypeScript</li>
+                <li>Tailwind CSS</li>
+                <li>Next.js</li>
+              </ul>
             </div>
-        </section>
-    );
+            <div>
+              <h4 className="font-medium text-gray-700 dark:text-gray-200">Backend</h4>
+              <ul className="list-disc list-inside text-gray-600 dark:text-gray-300">
+                <li>Node.js</li>
+                <li>Express</li>
+                <li>PostgreSQL</li>
+                <li>MongoDB</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default About;

@@ -1,79 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const Navbar = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [activeSection, setActiveSection] = useState('home');
+const Navbar: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const sections = ['home', 'projects', 'about', 'contact'];
-            const current = sections.find(section => {
-                const element = document.getElementById(section);
-                if (element) {
-                    const rect = element.getBoundingClientRect();
-                    return rect.top >= 0 && rect.top <= window.innerHeight / 2;
-                }
-                return false;
-            });
-            if (current) setActiveSection(current);
-        };
+  return (
+    <nav className="bg-white dark:bg-gray-800 shadow-lg">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center h-16">
+          <Link to="/" className="text-xl font-bold text-gray-800 dark:text-white">
+            Your Name
+          </Link>
+          
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden rounded-md p-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+          >
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {isOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+          {/* Desktop menu */}
+          <div className="hidden md:flex space-x-4">
+            <Link to="/" className="nav-link">Home</Link>
+            <Link to="/about" className="nav-link">About</Link>
+            <Link to="/projects" className="nav-link">Projects</Link>
+            <Link to="/contact" className="nav-link">Contact</Link>
+          </div>
+        </div>
 
-    return (
-        <nav className="fixed w-full z-50 bg-background/90 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                    <span className="text-xl font-bold text-text-primary">DEV</span>
-                    <div className="hidden md:block">
-                        <div className="flex space-x-8">
-                            {['Home', 'Projects', 'About', 'Contact'].map((item) => (
-                                <a
-                                    key={item}
-                                    href={`#${item.toLowerCase()}`}
-                                    className={`${
-                                        activeSection === item.toLowerCase()
-                                            ? 'text-primary'
-                                            : 'text-text-secondary hover:text-text-primary'
-                                    } transition-colors duration-200`}
-                                >
-                                    {item}
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="md:hidden">
-                        <button
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="text-text-secondary hover:text-text-primary"
-                            aria-label="Toggle navigation menu"
-                        >
-                            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                        </button>
-                    </div>
-                </div>
+        {/* Mobile menu */}
+        {isOpen && (
+          <div className="md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              <Link to="/" className="mobile-nav-link">Home</Link>
+              <Link to="/about" className="mobile-nav-link">About</Link>
+              <Link to="/projects" className="mobile-nav-link">Projects</Link>
+              <Link to="/contact" className="mobile-nav-link">Contact</Link>
             </div>
-            {isMenuOpen && (
-                <div className="md:hidden bg-background/95 backdrop-blur-sm">
-                    <div className="px-2 pt-2 pb-3 space-y-1">
-                        {['Home', 'Projects', 'About', 'Contact'].map((item) => (
-                            <a
-                                key={item}
-                                href={`#${item.toLowerCase()}`}
-                                className="block px-3 py-2 text-text-secondary hover:text-text-primary"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                {item}
-                            </a>
-                        ))}
-                    </div>
-                </div>
-            )}
-        </nav>
-    );
+          </div>
+        )}
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;
